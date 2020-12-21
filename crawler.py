@@ -11,7 +11,7 @@ class Crawler(object):
 
     """
     Crawls a website that holds lyrics. It curls through every link alphabetically
-    in the website and it crawls each and every movie under every alphabet. A list of all these links
+    in the website and it crawls each and every song under every alphabet. A list of all these links
     is returned here.
     """
     def crawl_lyric_links(self):
