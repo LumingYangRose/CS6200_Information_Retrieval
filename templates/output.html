@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>Output</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/materialize.min.css') }}" type="text/css" rel="stylesheet"
+          media="screen,projection"/>
+    <link href="{{ url_for('static',filename='css/style.css') }}" type="text/css" rel="stylesheet"
+          media="screen,projection"/>
+</head>
+<style>
+    body {
+        background-image : url('/static/img/music5.jpg');
+        height:100%;
+        background-position: center;
+        background-repeat: initial;
+        background-size: cover;
+    }
+
+    h4 {color: ghostwhite;font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace}
+    p {text-align: justify;
+        top:  50%;
+        left: 50%;
+        /*transform: translate(-50%,-50%);*/
+        color: ghostwhite;
+        font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace}
+
+    button {background-color: #4CAF50;
+        position: absolute;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;}
+    button:hover {background-color: darkgreen}
+
+    .wrapper {
+        text-align: center;
+        position: absolute;
+        left: 45%;
+        ;
+    }
+
+
+</style>
+<body background="/static/img/music5.jpg">
+<script>
+    function goBack() {
+        window.history.go(-1);
+    }
+
+    function highlight() {
+
+        const query = document.querySelectorAll("[id='res']");
+        for(var i = 0; i < query.length; i++) {
+            const str = (query[i].getAttribute('data-value'));
+            const word = (query[i].getAttribute('data-q'));
+            console.log(str + " " + word)
+            var n = str.includes(word);
+            if (n) {
+                let result = str.replace(new RegExp(word, "gi"),
+                                         (match) => `<mark>${match}</mark>`);
+                query[i].innerHTML = result;
+            }
+        }
+
+    }
+
+</script>
+<h4>Top 10 songs where your search query was found:</h4>
+<br>
+
+<div class="container">
+    <div class="row">
+        <ol>
+
+            {% for movie,script in name.items() %}
+            <li>
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">{{movie}}</span>
+                        {% for s in script %}
+                        <p data-value="{{s}}" id="res" data-q="{{q}}" onmousemove="highlight()">{{s}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class = "wrapper">
+    <button onclick="goBack()">Search Again</button>
+</div>
+</body>
+</html>
