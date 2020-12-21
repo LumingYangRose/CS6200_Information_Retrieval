@@ -8,7 +8,7 @@ es = Elasticsearch()
 global res
 
 """
-Uses the pickle object containing the dictionary of movie titles and their scripts, to insert into
+Uses the pickle object containing the dictionary of song titles and their lyrics, to insert into
 a new Elasticsearch index, one record at a time. The resulting index is returned.
 """
 def create_index():
@@ -37,7 +37,7 @@ def create_index():
 The user's search query is processed and a match phrase process is conducted using the ES search API.
 Highlighting, also a part of the ES API, is performed as well on the words directly matching the
 search query. A dictionary with the song titles and their scores as well as a dictionary with the
-resulting movie titles and their highlighted scripts are returned.
+resulting song titles and their highlighted lyrics are returned.
 """
 def search_query(user_query):
     create_index()
