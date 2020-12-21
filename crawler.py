@@ -4,13 +4,13 @@ import re,pickle
 
 
 '''
-This class crawls required movie script information from a website and stores it into a pickle file 
+This class crawls required lyric script information from a website and stores it into a pickle file 
 to be used later.
 '''
 class Crawler(object):
 
     """
-    Crawls a website that holds movie scripts. It curls through every link alphabetically
+    Crawls a website that holds lyrics. It curls through every link alphabetically
     in the website and it crawls each and every movie under every alphabet. A list of all these links
     is returned here.
     """
@@ -64,16 +64,16 @@ class Crawler(object):
 
     """
     Each link that was returned as a total list will be parsed here. A dictionary containing the 
-    movie title and the script of the first scene of each movie is stored. The script is further
+    song title and the lyrics is stored. The lyrics is further
     processed to remove unnecessary punctuation and it converted to lower case to better search 
     results.
     """
-    def crawl_lyrics(self): #multiple dictionaries with one sentence and movie title EACH
+    def crawl_lyrics(self):
         lyric_list = []
         pickle_in = open("links_dataset.pickle","rb")
         links = pickle.load(pickle_in)
         print(len(links))
-        # text_file = open("OutputMovies1.txt", "a")
+
         print("Crawling all links...stay tuned.")
         count = 0
         for link in links:
@@ -81,10 +81,7 @@ class Crawler(object):
             count += 1
             if count > 20000:
                 break
-            # count -= 1
-            # if count < 0:
-            #     break           
-            # print(link)
+
             requestSource = requests.get(link)
 
             if requestSource.status_code == 200:
@@ -116,7 +113,7 @@ class Crawler(object):
                     continue
                 lyric_list.append(song)
                 # print(song)
-                # text_file.write(json.dumps(movie,indent=3, sort_keys=True))
+
 
             else:
                 continue
@@ -132,5 +129,5 @@ class Crawler(object):
 x = Crawler()
 # x.crawl_lyric_links()
 x.crawl_lyrics()
-# print(x.crawl_dialogues())
+
 # print(x.find_synonyms())
